@@ -3,7 +3,7 @@
  * Sensapex microManipulator Control Protocol v1 definitions
  * Public SDK version.
  *
- * Copyright (c) 2015-2024 Sensapex. All rights reserved
+ * Copyright (c) 2015-2025 Sensapex. All rights reserved
  *
  * The Sensapex micromanipulator SDK is free software: you can redistribute
  * it and/or modify it under the terms of the GNU Lesser General Public License
@@ -215,6 +215,19 @@ typedef enum
     SMCP1_READ_ERROR_STATE             = 41,
     // Clear error state, no arguments, no response
     SMCP1_CLEAR_ERROR_STATE            = 42,
+
+    // Take a "jackhammer" type step
+    // Arguments:
+    //     - Target actuator: X == 0, Y == 1, Z == 2, W == 3
+    //     - Number of iterations
+    //     - Step counts of phase 1. Number of steps taken in first phase.
+    //     - A step speed for phase 1.
+    //       Positive value indicates movement forward. Negative backward.
+    //     - Step counts of phase 2. Number of steps taken in second phase.
+    //     - A step speed for phase 2
+    //       Positive value indicates movement forward. Negative backward.
+    // Response: none
+    SMCP1_CMD_TAKE_JACKHAMMER_STEP     = 43,
 
     SMCP1_CMD_GET_AXIS_ANGLE           = 44,
 
