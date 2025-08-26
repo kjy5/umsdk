@@ -1,9 +1,9 @@
 /**
  * @file    libum.h
  * @author  Sensapex <support@sensapex.com>
- * @date    3 Dec 2024
+ * @date    24 Feb 2025
  * @brief   This file contains a public API for the 2015 series Sensapex uM product family SDK
- * @copyright   Copyright (c) 2016-2024 Sensapex. All rights reserved
+ * @copyright   Copyright (c) 2016-2025 Sensapex. All rights reserved
  *
  * The Sensapex uM product family SDK is free software: you can redistribute
  * it and/or modify it under the terms of the GNU Lesser General Public License
@@ -577,6 +577,26 @@ LIBUM_SHARED_EXPORT int um_take_step(um_state *hndl, const int dev,
                                      const int mode, const int max_acceleration);
 
 /**
+ * @brief Take a "jackhammer" type step
+ *
+ * @param       hndl        Pointer to session handle
+ * @param       dev         Device ID
+ * @param       axis        Axis name 'x','y','z' or 'd'
+ * @param       iterations  Number of iterations
+ * @param       steps1      Number of steps taken in 1. phase.
+ * @param       speed1      A step speed for phase 1. (Positive value indicates movement forward. Negative backward.)
+ * @param       steps2      Number of steps taken in 2. phase.
+ * @param       speed2      A step speed for phase 2. (Positive value indicates movement forward. Negative backward.)
+ *
+ * @return  Negative value if an error occurred. Zero or positive value otherwise.
+ */
+
+ LIBUM_SHARED_EXPORT int um_take_jackhammer_step(um_state *hndl, const int dev,
+                                                 const char axis, const int iterations,
+                                                 const int steps1, const int speed1,
+                                                 const int steps2, const int speed2);
+
+ /**
  * @brief Set options for the next command to be sent to a manipulator.
  * This is a one-time setting and will be reset after sending the next command.
  * Can be used to set the trigger for next command (e.g. goto position)

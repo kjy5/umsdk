@@ -2,7 +2,7 @@
  * A software development kit for Sensapex 2015 series Micromanipulators,
  * Microscope stage and Pressure controller
  *
- * Copyright (c) 2015-2024, Sensapex Oy
+ * Copyright (c) 2015-2025, Sensapex Oy
  * All rights reserved.
  *
  * This file is part of 2015 series Sensapex uMx device SDK
@@ -35,8 +35,8 @@
 #include "libum.h"
 #include "smcp1.h"
 
-#define LIBUM_VERSION_STR    "v1.504"
-#define LIBUM_COPYRIGHT      "Copyright (c) Sensapex 2017-2024. All rights reserved"
+#define LIBUM_VERSION_STR    "v1.510"
+#define LIBUM_COPYRIGHT      "Copyright (c) Sensapex 2017-2025. All rights reserved"
 
 #define LIBUM_MAX_MESSAGE_SIZE   1502
 #define LIBUM_ANY_IPV4_ADDR  "0.0.0.0"
@@ -1699,6 +1699,27 @@ int um_take_step(um_state *hndl, const int dev, const float step_x, const float 
         args[argc++] = max_acc;
     }
     return um_cmd (hndl, dev, SMCP1_CMD_TAKE_STEP, argc, args);
+}
+
+int um_take_jackhammer_step(um_state *hndl, const int dev, const char axis, const int iterations, const int steps1, const int speed1, const int steps2, const int speed2) {
+    int args[10], argc = 0;
+    if(!hndl)
+    return set_last_error(hndl, LIBUM_NOT_OPEN);
+
+    if(iterations < 0)
+    return set_last_error(hndl, LIBUM_INVALID_ARG);
+    if(steps1 < 0)
+    return set_last_error(hndl, LIBUM_INVALID_ARG);
+    if(steps2 < 0)
+    return set_last_error(hndl, LIBUM_INVALID_ARG);
+    args[argc++] = axis;
+    args[argc++] = iterations;
+    args[argc++] = steps1;
+    args[argc++] = speed1;
+    args[argc++] = steps2;
+    args[argc++] = speed2;
+
+    return um_cmd(hndl, dev, SMCP1_CMD_TAKE_JACKHAMMER_STEP, argc, args);
 }
 
 int um_get_feature(um_state *hndl, const int dev, const int feature_id) {
